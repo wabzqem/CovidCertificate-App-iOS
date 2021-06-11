@@ -41,8 +41,8 @@
         "package": "CovidCertificateSDK",
         "repositoryURL": "https://github.com/admin-ch/CovidCertificate-SDK-iOS",
         "state": {
-          "branch": "main",
-          "revision": "7fb5e003c62d0b401472494947b709000b6f7b50",
+          "branch": "feature/add-certlogic",
+          "revision": "ac1b6569ec9657d28b501a2611172a5bd80e604c",
           "version": null
         }
       },
@@ -53,6 +53,15 @@
           "branch": null,
           "revision": "ba0b6cb51cc6202f896e469b87d2889a46b10d1b",
           "version": "5.1.1"
+        }
+      },
+      {
+        "package": "jsonlogic",
+        "repositoryURL": "https://github.com/eu-digital-green-certificates/json-logic-swift",
+        "state": {
+          "branch": "release/test-merged-prs",
+          "revision": "be733d2978beaf9e4db4f7eebb1e5d3023134753",
+          "version": null
         }
       },
       {
