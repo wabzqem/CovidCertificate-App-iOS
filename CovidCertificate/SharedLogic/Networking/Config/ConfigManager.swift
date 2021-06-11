@@ -18,13 +18,13 @@ class ConfigManager: NSObject {
 
     private let session = URLSession.certificatePinned
     private var dataTask: URLSessionDataTask?
+    private static var jwsVerifierInstance: JWSVerifier?
 
-    private let jwsVerifier: JWSVerifier
+    private static var jwsVerifier: JWSVerifier {
+        if let verifier = jwsVerifierInstance {
+            return verifier
+        }
 
-    // MARK: - Init
-
-    /// This function will fail if anything happens to the pinning certificate. This should never happen on normal usage!
-    override init() {
         guard let data = Bundle.main.url(forResource: "swiss_governmentrootcaii", withExtension: "der") else {
             fatalError("Signing CA not in Bundle")
         }
@@ -33,8 +33,13 @@ class ConfigManager: NSObject {
               let verifier = JWSVerifier(rootCertificate: caPem, leafCertMustMatch: ConfigManager.leafCertificateCommonName) else {
             fatalError("Cannot create certificate from data")
         }
-        jwsVerifier = verifier
+        return verifier
     }
+
+    // MARK: - Init
+
+    /// This function will fail if anything happens to the pinning certificate. This should never happen on normal usage!
+    override init() {}
 
     private static var leafCertificateCommonName: String {
         switch Environment.current {
@@ -117,7 +122,7 @@ class ConfigManager: NSObject {
                 return
             }
 
-            self.jwsVerifier.verifyAndDecode(httpBody: data) { (result: Result<ConfigResponseBody, JWSError>) in
+            ConfigManager.jwsVerifier.verifyAndDecode(httpBody: data) { (result: Result<ConfigResponseBody, JWSError>) in
                 DispatchQueue.main.async {
                     if case let .success(config) = result {
                         ConfigManager.currentConfig = config
@@ -188,13 +193,32 @@ class ConfigManager: NSObject {
             let path = "" // Not supported
         #endif
         guard let resource = Bundle.main.path(forResource: path, ofType: "json"),
-              let data = try? Data(contentsOf: URL(fileURLWithPath: resource), options: .mappedIfSafe),
-              let config = try? JSONDecoder().decode(ConfigResponseBody.self, from: data)
+              let data = try? Data(contentsOf: URL(fileURLWithPath: resource), options: .mappedIfSafe)
         else {
             return nil
         }
+        guard var dataString = String(data: data, encoding: .utf8) else {
+            return nil
+        }
+        dataString = dataString.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let truncatedData = dataString.data(using: .utf8) else {
+            return nil
+        }
+        let semaphore = DispatchSemaphore(value: 0)
+        var outcome: Result<ConfigResponseBody, JWSError> = .failure(.SIGNATURE_INVALID)
 
-        return config
+        jwsVerifier.verifyAndDecode(httpBody: truncatedData) { (result: Result<ConfigResponseBody, JWSError>) in
+            outcome = result
+            semaphore.signal()
+        }
+
+        semaphore.wait()
+
+        guard let result = try? outcome.get() else {
+            return nil
+        }
+
+        return result
     }
 }
 
