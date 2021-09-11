@@ -2139,7 +2139,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = XPL89PTG92;
+				DEVELOPMENT_TEAM = 7VLX4VPK4N;
 				INFOPLIST_FILE = "CovidCertificate/Supporting Files/Verifier-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2147,7 +2147,7 @@
 				);
 				MARKETING_VERSION = "${inherited}";
 				PRIMARY_BUNDLE_IDENTIFIER = ch.admin.bag.covidcertificate.verifier.dev;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(PRIMARY_BUNDLE_IDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = medicare.whatsbeef.net;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG ENABLE_OS_LOG ENABLE_TESTING VERIFIER";
@@ -2166,7 +2166,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "${BUILD_NUMBER}";
-				DEVELOPMENT_TEAM = XPL89PTG92;
+				DEVELOPMENT_TEAM = 7VLX4VPK4N;
 				INFOPLIST_FILE = "CovidCertificate/Supporting Files/Verifier-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2670,7 +2670,7 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		48CCA61F265F93D200887F63 /* XCRemoteSwiftPackageReference "CovidCertificate-SDK-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/admin-ch/CovidCertificate-SDK-iOS";
+			repositoryURL = "https://github.com/wabzqem/CovidCertificate-SDK-iOS";
 			requirement = {
 				branch = main;
 				kind = branch;

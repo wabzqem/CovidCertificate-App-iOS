@@ -39,10 +39,10 @@
       },
       {
         "package": "CovidCertificateSDK",
-        "repositoryURL": "https://github.com/admin-ch/CovidCertificate-SDK-iOS",
+        "repositoryURL": "https://github.com/wabzqem/CovidCertificate-SDK-iOS",
         "state": {
           "branch": "main",
-          "revision": "1c9a15cbbd7a9038187a4fa544600cc02da86aab",
+          "revision": "17eb14c279c30886f3588bdfa0cc1844320d5981",
           "version": null
         }
       },
